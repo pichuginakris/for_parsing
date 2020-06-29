@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>PARSING_VK_MARKET</title>
+
+    <style>
+        H1 {
+            font-size: 150%;
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: #333366;
+            }
+        label {
+            font-family: Verdana, Arial, Helvetica, sans-serif;
+            color: #333366;
+            }
+        input {
+                color: #333366; /* цвет текста */
+                text-decoration: none; /* убирать подчёркивание у ссылок */
+                user-select: none; /* убирать выделение текста */
+                background: #d3dce0;
+                padding: .7em 1.5em; /* отступ от текста */
+                outline: none; /* убирать контур в Mozilla */
+            }
+            TABLE {
+                border-collapse: collapse; /* Убираем двойные линии между ячейками */
+                width: 0px; /* Ширина таблицы */
+            }
+            TH {
+                background: (  #C5DDE8); color: #333366;
+               }
+            TD {
+                background: (  #C5DDE8);color: #333366;
+            }
+            TH, TD {
+                border: 1px solid black; /* Параметры рамки */
+                padding: 1px; /* Поля вокруг текста */
+             }
+    </style>
+</head>
+<body style="background: linear-gradient(45deg, #EECFBA, #C5DDE8);">
+        <div class="general-container" align="center" style="margin: 10%;"  >
+        <div class="container top-container">
+            <div class="row">
+                <div class="col-lg-10">
+                    <h1 class="title">Форма для получение результатов парсинга магазина товаров вк</h1>
+                     <form method="POST" action="create/"  enctype="multipart/form-data" style="margin: 1%;" >
+                         <div class="form-group" style="margin: 1%;" >
+                         {% csrf_token %}
+                             <label  >Введите наименование товара: </label>
+                             <input type="text" name="product_name" />
+                         </div>
+                         <div class="form-group" style="margin: 1%;" >
+                             <label>Введите город: </label>
+                             <input type="text" name="city_name" />
+                        </div>
+                         <div class="form-group" style="margin: 1;" >
+                              <input type="submit" class="btn btn-primary btn-orange" value="Отправить запрос" >
+                        </div>
+                         <div class="form-group" style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+                              color: #333366;margin: 2%;" >
+                             <a>{{ message}} </a>
+                        </div>
+
+
+                     </form>
+                     <form method="POST" action="show/"  enctype="multipart/form-data" align="center">
+                         <div class="form-group">
+                             {% csrf_token %}
+                            <input type="submit" value="Посмотреть файл" >
+                         </div>
+                         <div class="form-group" style="margin:2%;">
+                             <a download href="sorts" style=" font-family: Verdana, Arial, Helvetica, sans-serif;
+                              color: #333366;">Скачать полученный файл  </a>
+                         </div>
+                         <div class="form-group">
+                            <h2 style="color: #333366"> {{h1}} </h2>
+                         </div>
+                        <table align="center">
+                            <tr><th>{{ headers.id }}</th><th>{{ headers.city }}</th><th>{{ headers.address }}</th><th>{{ headers.group }}</th><th>{{ headers.number }}</th><th>{{ headers.group_ref }}</th><th>{{ headers.info }}</th></tr>
+                            {% for sort in sorts %}
+                            <tr><td>{{ sort.id }} </td><td>{{ sort.city }}</td><td>{{ sort.address }}</td><td>{{ sort.group }}</td><td>{{ sort.number }}</td><td>{{ sort.group_ref }}</td><td>{{ sort.info }}</td><td></td></tr>
+                            {% endfor %}
+                        </table>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
